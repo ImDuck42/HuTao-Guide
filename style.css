@@ -12,6 +12,7 @@ body {
     overflow: hidden; /* Remove global scrollbars */
 }
 
+/* Wrapper Style */
 .wrapper {
     display: flex;
     width: 100vw; /* Full viewport width */
@@ -19,32 +20,28 @@ body {
     background-color: #2d1b1f; /* Darker background */
     border-radius: 0.5rem; /* Rounded corners */
     overflow: hidden; /* Prevent overflow */
+    flex-direction: column; /* Stack sidebar and content vertically on smaller screens */
 }
 
 /* Sidebar Styles */
 .sidebar {
-    width: 20%; /* Sidebar width */
-    height: calc(100vh - 2rem); /* Full height minus margins */
-    margin: 1%;
-    padding: 1.5%; /* Reduce padding for more compact design */
+    width: 100%; /* Full width for mobile */
+    height: auto; /* Auto height for mobile */
+    padding: 1.5%; /* Reduce padding for a more compact design */
     border: 0.2rem solid #d7a1a6; /* Light pink border */
     border-radius: 0.5rem;
     background-color: #2d1b1f; /* Match wrapper background */
     box-sizing: border-box;
     position: relative; /* For absolute positioning of scrollbar suppression */
-    overflow-y: auto; /* Vertical scroll */
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    overflow: hidden; /* Hide overflow */
 }
 
-.sidebar::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in Webkit browsers */
-}
-
+/* Sidebar Title */
 .sidebar h2 {
     margin-top: auto;
     padding-bottom: 0.4rem; /* Reduce padding for a tighter look */
     text-align: center;
-    font-size: 2.5rem; /* Slightly smaller font size */
+    font-size: 2rem; /* Adjust font size */
     color: #f5a8a1; /* Lighter pink color */
     border-bottom: 2px solid #f5a8a1; /* Underline */
     position: sticky; /* Sticky title */
@@ -53,9 +50,10 @@ body {
     z-index: 1; /* Above other content */
 }
 
+/* Sidebar Links */
 .sidebar ul {
     margin: 0;
-    padding-left: 1.5rem; /* Reduce indentation */
+    padding-left: 0; /* Remove left padding */
 }
 
 .sidebar ul li {
@@ -66,9 +64,9 @@ body {
 .sidebar ul li a,
 .toggle-button {
     display: block;
-    padding: 0.5rem 0.8rem; /* Reduce padding */
+    padding: 0.5rem 1rem; /* Adjust padding */
     margin: 0.3rem 0; /* Reduce vertical spacing */
-    font-size: 1.2rem; /* Slightly smaller font size */
+    font-size: 1.1rem; /* Adjust font size */
     color: #d7a1a6; /* Light color for links */
     text-decoration: none;
     border-radius: 0.3rem; /* Slightly reduce border radius */
@@ -81,22 +79,25 @@ body {
     color: #2d1b1f; /* Dark text color on hover */
 }
 
+/* Toggle Button */
 .toggle-button {
     width: 100%;
     cursor: pointer;
     background: none;
     border: none;
-    font-size: 1.5rem; /* Slightly smaller font size */
+    font-size: 1.3rem; /* Slightly larger font size */
     font-weight: bold;
     display: flex;
     align-items: center;
     transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
 }
 
+/* Toggle Button Active */
 .toggle-button:active {
     transform: scale(0.95); /* Slightly shrink button on click */
 }
 
+/* Subcategory Styles */
 .subcategory {
     padding-left: 1.5rem; /* Reduce indentation for subcategories */
     max-height: 0; /* Hidden by default */
@@ -109,7 +110,7 @@ body {
 }
 
 .subcategory a {
-    padding-left: 2rem; /* Reduce indentation for subcategory links */
+    padding-left: 1.5rem; /* Reduce indentation for subcategory links */
     font-size: 1rem; /* Smaller font size for subcategory links */
     color: #e5e5e5; /* Light gray color for subcategory links */
 }
@@ -118,10 +119,10 @@ body {
     background-color: #a16b6f; /* Darker pink on hover */
 }
 
-/* Content Styles */
+/* Main Content Styles */
 .content {
-    width: calc(80% - 2rem); /* Remaining width */
-    height: calc(100% - 2rem); /* Full height minus margins */
+    width: 100%; /* Full width for mobile */
+    height: auto; /* Auto height for mobile */
     margin: 1%;
     padding: 2%;
     border: 0.2rem solid #d7a1a6; /* Light pink border */
@@ -130,21 +131,24 @@ body {
     box-sizing: border-box;
 }
 
+/* Main Content Title */
 h1 {
     margin-top: auto;
     text-align: center;
-    font-size: 3rem; /* Larger font size */
+    font-size: 2.5rem; /* Adjust font size */
     color: #f5a8a1; /* Lighter pink color */
 }
 
+/* Search Bar Styles */
 .search-bar {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack input and button vertically */
+    align-items: center;
     margin-top: 1rem;
 }
 
 .search-bar input[type="text"] {
-    width: 70%;
+    width: 90%; /* Adjust width for mobile */
     padding: 1rem;
     font-size: 1rem;
     color: #d7a1a6; /* Light text color */
@@ -160,7 +164,7 @@ h1 {
 }
 
 .search-bar button {
-    margin-left: 1%;
+    margin-top: 1rem; /* Add margin top for spacing */
     padding: 1rem 2rem;
     font-size: 1rem;
     color: #2d1b1f; /* Dark text color */
@@ -198,7 +202,7 @@ h1 {
 }
 
 .popup-content {
-    width: 80%;
+    width: 90%; /* Adjust width for mobile */
     max-width: 500px;
     padding: 2rem;
     border-radius: 0.5rem;
@@ -243,4 +247,24 @@ h1 {
 .blur {
     filter: blur(5px); /* Adjust the blur amount as needed */
     transition: filter 0.3s; /* Smooth transition */
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto; /* Auto height for mobile */
+        padding: 1% 0; /* Adjust padding */
+    }
+
+    .wrapper {
+        flex-direction: column; /* Stack sidebar and content vertically */
+    }
+
+    .content {
+        width: 100%; /* Full width for mobile */
+        height: auto; /* Auto height for mobile */
+        margin: 1% 0; /* Adjust margins */
+        padding: 1%;
+    }
 }
