@@ -35,26 +35,36 @@ document.addEventListener('DOMContentLoaded', () => {
         return decodeURIComponent(str.replace(/-/g, ' '));
     }
 
+    // Utility function to get the base URL
+    function getBaseUrl() {
+        return window.location.pathname.startsWith('/repository-name') ? '/repository-name' : '';
+    }
+
+    // Utility function to update the URL
+    function updateUrl(path) {
+        window.history.pushState({}, '', `${getBaseUrl()}/${path}`);
+    }
+
     // Toggle visibility of subcategories
     toggleButtons.forEach(button => {
         button.addEventListener('click', () => {
             const subcategory = button.nextElementSibling;
             const isVisible = subcategory.classList.contains('show');
-            
+
             // Collapse all subcategories
             document.querySelectorAll('.subcategory').forEach(sub => {
                 sub.classList.remove('show');
             });
-            
+
             // Toggle the clicked subcategory
             subcategory.classList.toggle('show', !isVisible);
 
             // Update URL
             if (!isVisible) {
                 const category = encodeURIComponentCustom(button.textContent.trim());
-                window.history.pushState({}, '', `/${category}`);
+                updateUrl(category);
             } else {
-                window.history.pushState({}, '', window.location.pathname);
+                updateUrl('');
             }
         });
     });
@@ -73,22 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     sub.classList.remove('show');
                 }
             });
-            
+
             subcategory.classList.add('show');
 
             // Update URL
             const category = encodeURIComponentCustom(toggleButton.textContent.trim());
             const item = encodeURIComponentCustom(link.textContent.trim());
-            window.history.pushState({}, '', `/${category}/${item}`);
+            updateUrl(`${category}/${item}`);
         });
     });
 
     // Handle URL changes
     function handleCategoryFromURL() {
-        const path = window.location.pathname.substring(1); // Get path without '/'
+        const path = window.location.pathname.substring(getBaseUrl().length); // Remove base URL
         const [category, item] = path.split('/'); // Split path into category and item
 
-        // Show subcategory based on URL
         if (category) {
             const decodedCategory = decodeURIComponentCustom(category);
             const categoryButtons = Array.from(toggleButtons);
